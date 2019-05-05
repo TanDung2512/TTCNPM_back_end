@@ -10,3 +10,6 @@ router.post("/login",(req,res,next) => {
 router.post("/logup",(req,res,next) => {
 
 })
+
+
+module.exports = router;
