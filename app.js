@@ -1,11 +1,9 @@
-const express = require('express');
-const path = require('path');
-const cookieParser = require('cookie-parser');
-const logger = require('morgan');
-
-const usersRouter = require('./api/routes/users');
-const app = express();
-
+const express       = require('express');
+const path          = require('path');
+const cookieParser  = require('cookie-parser');
+const logger        = require('morgan');
+const usersRouter   = require('./api/routes/users');
+const app           = express();
 
 app.use(logger('dev'));
 app.use(express.json());

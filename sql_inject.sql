@@ -74,18 +74,18 @@ create table products_orders
 --    product_id int not null,
     product_id varchar(50) not null,
     order_id int not null,
-    product_quantity int not null,
+    order_quantity int not null,
 
     foreign key(product_id) references products(product_id),
     foreign key(order_id) references orders(order_id)
 );
 
-create table carts
+create table wishList
 (
     user_id int not null,
 --    product_id int not null,
     product_id varchar(50) not null,
-
+    product_quantity int not null,
     foreign key(user_id) references users(user_id),
     foreign key(product_id) references products(product_id)
 );
