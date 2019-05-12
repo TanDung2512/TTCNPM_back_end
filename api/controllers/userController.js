@@ -4,95 +4,123 @@ const user_db    = require('../models/userModel');
 const bcrypt     = require('bcrypt');
 const saltRounds = 10;
 
-exports.user_sign_in = (req,res,next) => {
-  let user = req.body;
-  user_db.findAll({
-    where: {
-      user_email : user.user_email,
-    }
-  })
-  .then(search_user => {
-    if(search_user.length === 0){
-      res.status(200).json({
-        success : false,
-        message : 'Incorrect username or password',
-      })
-    }
-    console.log(user, search_user);
-    bcrypt.compare(user.user_password,search_user[0].user_password)
-    .then( match => {
-      if(match){
-        let user_token = jwt.sign({
-          user_email    : search_user[0].user_email,
-          user_phone    : search_user[0].user_phone,
-          role_id       : search_user[0].role_id,
-          is_female     : search_user[0].is_female,
-          user_firstname: search_user[0].user_firstname,
-          user_lastname : search_user[0].user_lastname,
-          user_address  : search_user[0].user_address,
-        },key.PRIVATE_KEY)
+const userService = require("../services/users");
 
-        res.status(200).json({
-          success : true,
-          message : 'Authentication successful',
-          token   : user_token,
-        });
-      } else {
+module.exports = {
+  user_sign_in : (req,res,next) => { 
+    let userInputMail = req.body.user_email;
+    let userInputPassword = req.body.user_password;
+    /* * * * * * * * * * * * * * * * * * 
+    search_user = 
+    {
+      user_mail : xxx,
+      user_id : xxx,
+      ....
+      is_female : 1,
+    }
+    * * * * * * * * * * * * * * * * * * */
+
+    userService.find(userInputMail)
+    .then(search_user => {
+
+      if(search_user.length === 0){
         res.status(200).json({
           success : false,
-          message : 'Incorrect username or password',
+          message : 'Incorrect Username',
+        })
+      }
+      else {
+        // Compare user inputting password and found user' password
+        bcrypt.compare(userInputPassword, search_user.user_password)
+        .then( match => {
+          if(match){
+            let user_token = jwt.sign({
+              user_email    : search_user.user_email,
+              user_phone    : search_user.user_phone,
+              role_id       : search_user.role_id,
+              is_female     : search_user.is_female,
+              user_firstname: search_user.user_firstname,
+              user_lastname : search_user.user_lastname,
+              user_address  : search_user.user_address,
+            },key.PRIVATE_KEY);
+
+            res.status(200).json({
+              success : true,
+              message : 'Authentication successful',
+              token   : user_token,
+              user    : {
+                  user_email    : search_user.user_email,
+                  user_phone    : search_user.user_phone,
+                  is_female     : search_user.is_female,
+                  user_firstname: search_user.user_firstname,
+                  user_lastname : search_user.user_lastname,
+                  user_address  : search_user.user_address,
+              }
+            });
+          } 
+          else {
+            res.status(200).json({
+              success : false,
+              message : 'Incorrect password',
+            });
+          }
+        })
+        .catch( err => {
+          console.log("Error : " + err);
         });
       }
     })
     .catch( err => {
-      console.log("here");
+      console.log("Error : " + err);
+    });
+  },
+
+  user_sign_up : (req,res,next) => {
+    let user = req.body;
+
+    //  check whether account already created or not
+    userService.findAll(user.user_email)
+    .then(search_user => {
+      if( search_user.length === 0 ){
+      
+        //Hash password
+        bcrypt.hash(user.user_password, saltRounds)
+        .then( hash => {
+          // Assign hash password to user
+          user['user_password'] = hash;
+          user['role_id'] = 2;
+
+          // Create new user
+          userService.create(user)
+          .then( result => {
+            res.send({
+              message : "Successfully created",
+              flag : true,
+              user    : {
+                  user_email    : result.user_email,
+                  user_phone    : result.user_phone,
+                  is_female     : result.is_female,
+                  user_firstname: result.user_firstname,
+                  user_lastname : result.user_lastname,
+                  user_address  : result.user_address,
+              }
+            });
+          })
+        })
+
+
+      }
+      else{
+        res.send({
+          message : "Fail to sign up",
+          flag : 0
+        });
+      }
     })
-  })
+  }
+
+
 }
 
 
-exports.user_sign_up = (req,res,next) => {
-  let user = req.body;
-  /*
-    check whether account already created or not
-  */
-  user_db.findAll({
-    where: {
-      user_email : user.user_email,
-    }
-  })
-  .then(search_user => {
 
-    if( search_user.length === 0 ){
-      /*
-          Hash password
-      */
-
-      bcrypt.hash(user.user_password, saltRounds)
-      .then( hash => {
-        user_db.create({
-          user_email    : user.user_email,
-          user_password : hash,
-          user_phone    : user.user_phone,
-          role_id       : 1,
-          is_female     : Number(user.is_female),
-          user_firstname: user.user_firstname,
-          user_lastname : user.user_lastname,
-          user_address  : user.user_address,
-        })
-        .then( _ => {
-          res.send("successful");
-        })
-      })
-
-      /*
-          Insert into database
-      */
-
-
-    }
-    else{
-      res.send("aldready created ");
-    }
-  })
-}
