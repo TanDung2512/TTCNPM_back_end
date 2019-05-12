@@ -3,6 +3,7 @@ const path          = require('path');
 const cookieParser  = require('cookie-parser');
 const logger        = require('morgan');
 const usersRouter   = require('./api/routes/users');
+const searchRouter  = require('./api/routes/search');
 const app           = express();
 
 app.use(logger('dev'));
@@ -15,7 +16,7 @@ app.use(cookieParser());
 /*---------- route ----------*/
 app.use('/users', usersRouter);
 app.use('/products', usersRouter);
-app.use('/search', usersRouter);
+// app.use('/search', searchRouter);
 app.use('/compare', usersRouter);
 app.use('/compare', usersRouter);
 app.use('/comment', usersRouter);

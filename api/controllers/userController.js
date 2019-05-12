@@ -6,6 +6,7 @@ const saltRounds = 10;
 
 exports.user_sign_in = (req,res,next) => {
   let user = req.body;
+
   user_db.findAll({
     where: {
       user_email : user.user_email,
@@ -18,7 +19,8 @@ exports.user_sign_in = (req,res,next) => {
         message : 'Incorrect username or password',
       })
     }
-    console.log(user, search_user);
+    // console.log(user, search_user);
+
     bcrypt.compare(user.user_password,search_user[0].user_password)
     .then( match => {
       if(match){
