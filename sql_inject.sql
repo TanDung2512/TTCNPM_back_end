@@ -32,15 +32,26 @@ create table products
     product_id varchar(50) not null,
 --    product_id int not null,
     product_name varchar(255),
-    product_description longtext,
-    product_type varchar(255),
-    product_brand varchar(255),
-    product_price varchar(255),
-    product_created varchar(255),
-    product_rating int,
-    product_amount int,
+    product_description longtext DEFAULT '',
+    product_type varchar(255) DEFAULT 'unknown',
+    product_brand varchar(255) DEFAULT 'unknown',
+    product_price varchar(255) ,
+    product_created varchar(255) DEFAULT GETDATE(),
+    product_rating int DEFAULT 0,
+    amount_1_star int DEFAULT 0,
+    amount_2_star int DEFAULT 0,
+    amount_3_star int DEFAULT 0,
+    amount_4_star int DEFAULT 0,
+    amount_5_star int DEFAULT 0,
+    product_amount int DEFAULT 0,
     product_reviews varchar(50),
     product_image_url varchar(255),
+    product_category varchar(255) ,
+    product_color varchar(255) DEFAULT 'not update',
+    product_weight int DEFAULT 'not update',
+    product_dimensions varchar(255) DEFAULT 'not update',
+    sale_date date ,
+    sale_price int ,
     primary key (product_id),
     UNIQUE(product_id)
 );
@@ -66,7 +77,7 @@ create table orders
     order_sum_value float,
     user_id int not null,
     foreign key(user_id) references users(user_id),
-    primary key(order_id)
+    primary key(order_id),
 );
 
 create table products_orders
