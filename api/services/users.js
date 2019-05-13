@@ -22,10 +22,11 @@ module.exports = {
     },
 
     create : async (user) => {
+        console.log(user);
         var res = await user_db.create({
             user_email    : user.user_email,
             user_password : user.user_password,
-            user_phone    : user.user_phone,
+            user_phone    : user.user_phone.toString(),
             role_id       : user.role_id,
             is_female     : user.is_female,
             user_firstname: user.user_firstname,
