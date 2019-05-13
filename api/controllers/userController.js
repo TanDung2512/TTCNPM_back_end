@@ -7,11 +7,11 @@ const saltRounds = 10;
 const userService = require("../services/users");
 
 module.exports = {
-  user_sign_in : (req,res,next) => { 
+  user_sign_in : (req,res,next) => {
     let userInputMail = req.body.user_email;
     let userInputPassword = req.body.user_password;
-    /* * * * * * * * * * * * * * * * * * 
-    search_user = 
+    /* * * * * * * * * * * * * * * * * *
+    search_user =
     {
       user_mail : xxx,
       user_id : xxx,
@@ -48,16 +48,8 @@ module.exports = {
               success : true,
               message : 'Authentication successful',
               token   : user_token,
-              user    : {
-                  user_email    : search_user.user_email,
-                  user_phone    : search_user.user_phone,
-                  is_female     : search_user.is_female,
-                  user_firstname: search_user.user_firstname,
-                  user_lastname : search_user.user_lastname,
-                  user_address  : search_user.user_address,
-              }
             });
-          } 
+          }
           else {
             res.status(200).json({
               success : false,
@@ -82,28 +74,21 @@ module.exports = {
     userService.findAll(user.user_email)
     .then(search_user => {
       if( search_user.length === 0 ){
-      
+
         //Hash password
         bcrypt.hash(user.user_password, saltRounds)
         .then( hash => {
           // Assign hash password to user
           user['user_password'] = hash;
-          user['role_id'] = 2;
+          user['role_id'] = 1;
 
           // Create new user
+          console.log(user);
           userService.create(user)
           .then( result => {
             res.send({
               message : "Successfully created",
               flag : true,
-              user    : {
-                  user_email    : result.user_email,
-                  user_phone    : result.user_phone,
-                  is_female     : result.is_female,
-                  user_firstname: result.user_firstname,
-                  user_lastname : result.user_lastname,
-                  user_address  : result.user_address,
-              }
             });
           })
         })
@@ -121,6 +106,3 @@ module.exports = {
 
 
 }
-
-
-
