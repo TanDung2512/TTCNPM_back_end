@@ -7,11 +7,11 @@ const saltRounds = 10;
 const userService = require("../services/users");
 
 module.exports = {
-  user_sign_in : (req,res,next) => { 
+  user_sign_in : (req,res,next) => {
     let userInputMail = req.body.user_email;
     let userInputPassword = req.body.user_password;
-    /* * * * * * * * * * * * * * * * * * 
-    search_user = 
+    /* * * * * * * * * * * * * * * * * *
+    search_user =
     {
       user_mail : xxx,
       user_id : xxx,
@@ -49,7 +49,7 @@ module.exports = {
               message : 'Authentication successful',
               token   : user_token,
             });
-          } 
+          }
           else {
             res.status(200).json({
               success : false,
@@ -75,15 +75,16 @@ module.exports = {
     .then(search_user => {
       console.log(search_user);
       if( search_user.length === 0 ){
-      
+
         //Hash password
         bcrypt.hash(user.user_password, saltRounds)
         .then( hash => {
           // Assign hash password to user
           user['user_password'] = hash;
-          user['role_id'] = 2;
+          user['role_id'] = 1;
 
           // Create new user
+          console.log(user);
           userService.create(user)
           .then( result => {
             res.send({
@@ -106,6 +107,3 @@ module.exports = {
 
   // End module
 }
-
-
-
