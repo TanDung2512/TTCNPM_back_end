@@ -8,8 +8,4 @@ router.get('/top-sale');
 
 router.get('/page-product');
 
-router.get('/laptop');
-
-router.get('/phone');
-
-router.post('/product');
+router.get('/best-seller');

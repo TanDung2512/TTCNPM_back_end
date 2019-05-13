@@ -48,14 +48,6 @@ module.exports = {
               success : true,
               message : 'Authentication successful',
               token   : user_token,
-              user    : {
-                  user_email    : search_user.user_email,
-                  user_phone    : search_user.user_phone,
-                  is_female     : search_user.is_female,
-                  user_firstname: search_user.user_firstname,
-                  user_lastname : search_user.user_lastname,
-                  user_address  : search_user.user_address,
-              }
             });
           }
           else {
@@ -88,22 +80,15 @@ module.exports = {
         .then( hash => {
           // Assign hash password to user
           user['user_password'] = hash;
-          user['role_id'] = 2;
+          user['role_id'] = 1;
 
           // Create new user
+          console.log(user);
           userService.create(user)
           .then( result => {
             res.send({
               message : "Successfully created",
               flag : true,
-              user    : {
-                  user_email    : result.user_email,
-                  user_phone    : result.user_phone,
-                  is_female     : result.is_female,
-                  user_firstname: result.user_firstname,
-                  user_lastname : result.user_lastname,
-                  user_address  : result.user_address,
-              }
             });
           })
         })
