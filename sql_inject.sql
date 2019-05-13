@@ -77,7 +77,7 @@ create table orders
     order_sum_value float,
     user_id int not null,
     foreign key(user_id) references users(user_id),
-    primary key(order_id)
+    primary key(order_id),
 );
 
 create table products_orders
