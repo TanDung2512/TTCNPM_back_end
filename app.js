@@ -4,6 +4,7 @@ const cookieParser  = require('cookie-parser');
 const logger        = require('morgan');
 const usersRouter   = require('./api/routes/users');
 const searchRouter  = require('./api/routes/search');
+const cmsProductRouter = require('./cms/products')
 const app           = express();
 
 app.use(logger('dev'));
@@ -25,5 +26,6 @@ app.use('/compare', usersRouter);
 app.use('/compare', usersRouter);
 app.use('/comment', usersRouter);
 app.use('/order', usersRouter);
+app.use('/cms/products/', cmsProductRouter)
 
 module.exports = app;
