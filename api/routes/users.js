@@ -12,6 +12,10 @@ router.get("/delete-user", controller.userDelete);
 
 router.get("/search", controller.userSearch);
 
+router.get("/find-user", controller.userFindInfo);
+
+router.get("/update-user", controller.userUpdate);
+
 // router.patch("/promoteadmin",);
 module.exports = router;
 

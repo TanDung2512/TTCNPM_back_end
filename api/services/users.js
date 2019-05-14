@@ -67,4 +67,25 @@ module.exports = {
         return res;
     },
 
+    update : async(email, updateData) => {
+        console.log(email);
+        console.log(updateData);
+        var res = await user_db.update(
+            {
+                user_phone : updateData.user_phone,
+                is_female : updateData.is_female,
+                user_firstname : updateData.user_phone,
+                user_lastname : updateData.user_lastname,
+                user_address : updateData.user_address,
+            },
+            {
+                where : {
+                    user_email : email
+                }
+            }
+        );
+
+        return res;
+    }
+
 }

@@ -130,6 +130,18 @@ module.exports = {
     });
   },
 
+  userFindInfo:(req,res,next) => {
+    let email = req.query.email;
+
+    userService.find(email)
+    .then(search_user => {
+      res.send(search_user);
+    })
+    .catch( err => {
+      console.log("Error : " + err);
+    });
+  },
+
   userDelete : (req,res,next) => {
     let email = req.query.email;
 
@@ -139,6 +151,19 @@ module.exports = {
     })
     .catch( err => {
       res.send("Error when deleting")
+    });
+  },
+
+  userUpdate : (req,res,next) => {
+    let email = req.query.email;
+    let updateData = req.query.updateData;
+    console.log(updateData)
+    userService.update(email, updateData )
+    .then(updatedUser => {
+      res.send(updatedUser);
+    })
+    .catch( err => {
+      res.send("Error when updating")
     });
   },
 
