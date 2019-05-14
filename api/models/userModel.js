@@ -61,5 +61,4 @@ user.init({
   updatedAt: false,
   createdAt: false,
 });
-
 module.exports = user;
