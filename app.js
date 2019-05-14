@@ -4,6 +4,7 @@ const cookieParser  = require('cookie-parser');
 const logger        = require('morgan');
 const usersRouter   = require('./api/routes/users');
 const searchRouter  = require('./api/routes/search');
+const cmsRouter     = require('./api/routes/cms');
 const app           = express();
 
 app.use(logger('dev'));
@@ -17,7 +18,16 @@ app.use(function(req, res, next) {
   next();
 });
 
+// set up view engine .ejs
+app.set("view engine", "ejs");
+
+// expose the public folder
+app.use(express.static(__dirname + '/public'));
+
+// error page handler
+
 /*---------- route ----------*/
+app.use('/', cmsRouter);
 app.use('/users', usersRouter);
 app.use('/products', usersRouter);
 // app.use('/search', searchRouter);

@@ -21,6 +21,14 @@ module.exports = {
         return res;
     },
 
+    findLimit : async (offset, limit) => {
+        var res = await user_db.findAll({
+            offset: offset, limit: limit
+        });
+
+        return res;
+    },
+
     create : async (user) => {
         console.log(user);
         var res = await user_db.create({
