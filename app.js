@@ -3,12 +3,15 @@ const path          = require('path');
 const cookieParser  = require('cookie-parser');
 const logger        = require('morgan');
 const usersRouter   = require('./api/routes/users');
+const productsRouter = require('./api/routes/product')
 const searchRouter  = require('./api/routes/search');
 const productRouter = require('./api/routes/product');
 const cartRouter    = require('./api/routes/cart');
 const cmsRouter     = require('./api/routes/cms');
+var cors = require('cors')
+const app = express();
 
-const app           = express();
+app.use(cors())
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -34,7 +37,7 @@ app.use(express.static(__dirname + '/public'));
 /*---------- route ----------*/
 app.use('/', cmsRouter);
 app.use('/users', usersRouter);
-app.use('/products', productRouter);
+app.use('/products', productsRouter);
 // app.use('/search', searchRouter);
 app.use('/carts', cartRouter);
 app.use('/compare', usersRouter);

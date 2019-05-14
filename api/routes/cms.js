@@ -9,6 +9,8 @@ router.get("/user-management", function (req, res) {
     return res.render("cms/userManagement");
 });
 
+router.get("/product-management", function (req, res) {
+    return res.render("cms/productManagement");
+});
+
 module.exports = router;
-
-
