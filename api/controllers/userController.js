@@ -3,7 +3,7 @@ const key        = require("../../config/keys");
 const user_db    = require('../models/userModel');
 const bcrypt     = require('bcrypt');
 const saltRounds = 10;
-
+const cartService= require("../services/carts");
 const userService = require("../services/users");
 
 module.exports = {
@@ -35,6 +35,7 @@ module.exports = {
         .then( match => {
           if(match){
             let user_token = jwt.sign({
+              user_id       : search_user.user_id,
               user_email    : search_user.user_email,
               user_phone    : search_user.user_phone,
               role_id       : search_user.role_id,

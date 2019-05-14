@@ -12,7 +12,7 @@ SET time_zone = "+00:00";
 --
 --  database :  `ecommerce`
 --
-
+USE ecommerce;
 -- --------------------------------------------------------
 
 --
@@ -181,7 +181,7 @@ CREATE TABLE IF NOT EXISTS `products` (
   `product_type` varchar(255) DEFAULT NULL,
   `product_brand` varchar(255) DEFAULT NULL,
   `product_price` varchar(255) DEFAULT NULL,
-  `product_created` varchar(255) DEFAULT NULL,
+  `product_created` datetime,
   `product_rating` int(11) DEFAULT NULL,
   `amount_1_star` int DEFAULT 0,
   `amount_2_star` int DEFAULT 0,
@@ -195,7 +195,7 @@ CREATE TABLE IF NOT EXISTS `products` (
   `product_color` varchar(50) DEFAULT NULL,
   `product_weight` int(11) DEFAULT NULL,
   `product_dimensions` varchar(50) DEFAULT NULL,
-  `sale_date` date ,
+  `sale_date` datetime ,
   `sale_price` int ,
   PRIMARY KEY (`product_id`),
   UNIQUE KEY `product_id` (`product_id`)
@@ -222,7 +222,6 @@ CREATE TABLE IF NOT EXISTS `products_orders` (
 --  `reviews` table structure
 --
 
-DROP TABLE IF EXISTS `reviews`;
 CREATE TABLE IF NOT EXISTS `reviews` (
   `review_id` varchar(50) NOT NULL,
   `product_id` varchar(50) NOT NULL,

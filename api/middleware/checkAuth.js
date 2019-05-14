@@ -1,7 +1,8 @@
-
-
-exports.checkAuth = (req,res,next) => {
+const jwt = require('jsonwebtoken');
+const keys= require('../../config/keys');
+  checkAuth = (req,res,next) => {
   let token = req.headers['authorization'];
+  console.log(req);
   if(token.startsWith('Bearer ')){
     token = token.slice(7, token.length);
   }
@@ -22,5 +23,7 @@ exports.checkAuth = (req,res,next) => {
       success : false,
       message : 'Auth token is not supplied',
     })
+    }
   }
-}
+
+module.exports = checkAuth;
