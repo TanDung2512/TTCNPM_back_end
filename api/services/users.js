@@ -1,4 +1,6 @@
 const user_db    = require('../models/userModel');
+const Sequelize  = require('sequelize');
+const Op         = Sequelize.Op;
 
 module.exports = {
     find:  async (userName) => {
@@ -21,9 +23,18 @@ module.exports = {
         return res;
     },
 
-    findLimit : async (offset, limit) => {
+    findAllLikeAndLimit : async (userName, limit) => {
+        var res = await user_db.findAll({
+            where: { user_email: { [Op.like]: '%' + userName + '%'} },
+            limit: limit
+        })
+
+        return res;
+    },
+
+    findLimit : async (page, limit) => {
         limit = parseInt(limit);
-        offset = parseInt(offset);
+        offset = (parseInt(page) - 1) * limit;
         
         var res = await user_db.findAll( {offset : offset, limit : limit})
 
@@ -55,5 +66,26 @@ module.exports = {
 
         return res;
     },
+
+    update : async(email, updateData) => {
+        console.log(email);
+        console.log(updateData);
+        var res = await user_db.update(
+            {
+                user_phone : updateData.user_phone,
+                is_female : updateData.is_female,
+                user_firstname : updateData.user_phone,
+                user_lastname : updateData.user_lastname,
+                user_address : updateData.user_address,
+            },
+            {
+                where : {
+                    user_email : email
+                }
+            }
+        );
+
+        return res;
+    }
 
 }

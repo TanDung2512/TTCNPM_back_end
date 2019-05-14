@@ -19,11 +19,11 @@ module.exports = {
       is_female : 1,
     }
     * * * * * * * * * * * * * * * * * * */
-
+  
     userService.find(userInputMail)
     .then(search_user => {
 
-      if(search_user.length === 0){
+      if(search_user == undefined){
         res.status(200).json({
           success : false,
           message : 'Incorrect Username',
@@ -107,10 +107,10 @@ module.exports = {
   },
 
   userLimitSearch : (req,res,next) => {
-    let offset = req.query.offset;
+    let page = req.query.page;
     let limit = req.query.limit;
 
-    userService.findLimit(offset, limit)
+    userService.findLimit(page, limit)
     .then(search_users => {
       res.send(search_users);
     })
@@ -120,6 +120,18 @@ module.exports = {
   },
 
   userSearch : (req,res,next) => {
+    let email = req.query.email;
+
+    userService.findAllLikeAndLimit(email, 10)
+    .then(search_user => {
+      res.send(search_user);
+    })
+    .catch( err => {
+      console.log("Error : " + err);
+    });
+  },
+
+  userFindInfo:(req,res,next) => {
     let email = req.query.email;
 
     userService.find(email)
@@ -140,6 +152,19 @@ module.exports = {
     })
     .catch( err => {
       res.send("Error when deleting")
+    });
+  },
+
+  userUpdate : (req,res,next) => {
+    let email = req.query.email;
+    let updateData = req.query.updateData;
+    console.log(updateData)
+    userService.update(email, updateData )
+    .then(updatedUser => {
+      res.send(updatedUser);
+    })
+    .catch( err => {
+      res.send("Error when updating")
     });
   },
 
