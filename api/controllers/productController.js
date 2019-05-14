@@ -52,3 +52,14 @@ exports.get_new_product = (req,res,next) => {
       })
   })
 }
+
+exports.get_product = (req,res,next) => {
+
+  products.getProduct(req.query.product_id)
+  .then( products => {
+      let products_response = products.map(element => element.dataValues);
+      res.status(200).json({
+        products : products_response
+      })
+  })
+}

@@ -36,5 +36,14 @@ module.exports = {
       })
 
       return res;
+    },
+    getProduct : async (product_id) => {
+      var res = await product_db.findAll({
+          where :{
+            product_id : product_id,
+          }
+      })
+
+      return res;
     }
 }

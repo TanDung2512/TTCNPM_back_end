@@ -10,6 +10,7 @@ router.get('/page-product',controller.get_page_product);
 //
 router.get('/bestseller',controller.get_top_seller);
 
-router.get('/newproduct',controller.get_new_product)
+router.get('/newproduct',controller.get_new_product);
 
+router.get('/detail',controller.get_product);
 module.exports = router;
