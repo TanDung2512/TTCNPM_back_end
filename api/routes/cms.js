@@ -10,7 +10,6 @@ router.get("/index", checkAuthCms, function (req, res) {
     let token = req.query.token;
     let decoded = jwt.verify(token, keys.PRIVATE_KEY);
     
-    console.log(decoded);
     return res.render("index" , {token : token, userInfo: decoded});
 });
 
@@ -19,6 +18,13 @@ router.get("/user-management", checkAuthCms , function(req, res, next) {
     let decoded = jwt.verify(token, keys.PRIVATE_KEY);
 
     return res.render("cms/userManagement", {token : token, userInfo: decoded});
+});
+
+router.get("/product-management", checkAuthCms, function (req, res) {
+    let token = req.query.token;
+    let decoded = jwt.verify(token, keys.PRIVATE_KEY);
+
+    return res.render("cms/productManagement", {token : token, userInfo: decoded});
 });
 
 // LOGIN PAGE
@@ -30,5 +36,3 @@ router.get("/login", function (req, res) {
 router.post("/cms", userController.user_sign_in);
 
 module.exports = router;
-
-
