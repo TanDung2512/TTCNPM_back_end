@@ -23,9 +23,10 @@
                         </div>
                         <div class="eight wide right floated column" >
                             <div class="ui icon fluid input">
-                                <input type="text" placeholder="Search user by email...">
+                                <input id="search-user" class="prompt" type="text" placeholder="Search user by email...">
                                 <i class="inverted circular search link icon"></i>
                             </div>
+                            <div class="results"></div>
                         </div>
                     </div>
                 </div>
@@ -52,7 +53,7 @@
                         <tfoot>
                             <tr>
                                 <th colspan="8">
-                                    <div class="ui right floated pagination menu">
+                                    <div class="ui right floated pagination menu" id="page">
                                         <a class="icon item">
                                             <i class="left chevron icon"></i>
                                         </a>
@@ -94,10 +95,21 @@
                         </div>
                         <div class="eight wide column">
                             <div class="ui fluid input focus">
-                                <input type="text" placeholder="quandxbp@gmail.com">
+                                <input type="text" placeholder="quandxbp@gmail.com" name="modalUserMail">
                             </div>
                         </div>
                         <!-- /User email -->
+
+                        <!-- User Password -->
+                        <div class="eight wide column">
+                            <h3 class="ui label">Password</h3>
+                        </div>
+                        <div class="eight wide column">
+                            <div class="ui fluid input">
+                                <input type="password" placeholder="Enter your password" name="modalUserPassword">
+                            </div>
+                        </div>
+                        <!-- /User Password -->
 
                         <!-- User phone -->
                         <div class="eight wide column">
@@ -105,7 +117,7 @@
                         </div>
                         <div class="eight wide column">
                             <div class="ui fluid input">
-                                <input type="text" placeholder=" 0123456798">
+                                <input type="text" placeholder=" 0123456798" name="modalUserPhone">
                             </div>
                         </div>
                         <!-- /User phone -->
@@ -116,11 +128,11 @@
                         </div>
                         <div class="eight wide column">
                             <div class="ui radio checkbox">
-                                <input type="radio" name="frequency" checked="checked">
+                                <input type="radio" name="modalUserGender" checked="checked" value="0">
                                 <label>Male</label>
                             </div>
                             <div class="ui radio checkbox">
-                                <input type="radio" name="frequency" >
+                                <input type="radio" name="modalUserGender" value="1">
                                 <label>Female</label>
                             </div>
                         </div>
@@ -132,7 +144,7 @@
                         </div>
                         <div class="eight wide column">
                             <div class="ui fluid input">
-                                <input type="text" placeholder="Bùi">
+                                <input type="text" placeholder="Bùi" name="modalUserFirstname">
                             </div>
                         </div>
                         <!-- /User First name -->
@@ -143,7 +155,7 @@
                         </div>
                         <div class="eight wide column">
                             <div class="ui fluid input">
-                                <input type="text" placeholder="Quân">
+                                <input type="text" placeholder="Quân" name="modalUserLastname">
                             </div>
                         </div>
                         <!-- User last name -->
@@ -154,7 +166,7 @@
                         </div>
                         <div class="eight wide column">
                             <div class="ui fluid input">
-                                <input type="text" placeholder="497, Hoa Hao, P.7, Q.10">
+                                <input type="text" placeholder="497, Hoa Hao, P.7, Q.10" name="modalUserAddress">
                             </div>
                         </div>
                         <!-- User address -->

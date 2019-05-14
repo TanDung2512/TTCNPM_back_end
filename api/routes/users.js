@@ -10,6 +10,8 @@ router.get("/search-limit",controller.userLimitSearch);
 
 router.get("/delete-user", controller.userDelete);
 
+router.get("/search", controller.userSearch);
+
 // router.patch("/promoteadmin",);
 module.exports = router;
 

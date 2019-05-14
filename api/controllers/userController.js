@@ -106,10 +106,10 @@ module.exports = {
   },
 
   userLimitSearch : (req,res,next) => {
-    let offset = req.query.offset;
+    let page = req.query.page;
     let limit = req.query.limit;
 
-    userService.findLimit(offset, limit)
+    userService.findLimit(page, limit)
     .then(search_users => {
       res.send(search_users);
     })
@@ -121,7 +121,7 @@ module.exports = {
   userSearch : (req,res,next) => {
     let email = req.query.email;
 
-    userService.find(email)
+    userService.findAllLikeAndLimit(email, 10)
     .then(search_user => {
       res.send(search_user);
     })
