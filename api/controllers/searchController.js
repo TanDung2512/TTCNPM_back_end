@@ -1,46 +1,104 @@
-const user_db    = require('../models/productModel');
+const product_db    = require('../models/productModel');
 const Sequelize  = require('sequelize')
+const Op = Sequelize.Op;
 
 module.exports = {
-  search_allcategory : (req,res,next) => {
-   	const {term} = req.body;
-   	products.findAll(
-   	)
-   		res.status(200).json({
-          success : false,
-          message : 'Incorrect Username',
-        })
-  },
+ 
 
-  search_TV : (req,res,next) => {
-   	products.findAll({
-   		where:{
-   			product_id : 2
-   		}
-   	});
-  },
-
-  search_computer : (req,res,next) => {
-   	products.findAll({
-
-   	});
+  search_allcategory: (req,res,next) => {
+    const query = req.body.product_name;
+    product_db.findAll({
+      where: {
+        product_name: {
+          [Op.like]: `%${query}%`
+        }
+      }
+    })
+    .then(search_product => {
+      res.send(search_product);   
+    })
+    .catch( err => {
+      console.log("Error : " + err);
+    });
   },
 
   search_smartphone : (req,res,next) => {
-   	products.findAll({
+    const query = req.body.product_name;
+   	product_db.findAll( {where: {
+      product_category : 'Smart Phones',
+      product_name: {
+          [Op.like]: `%${query}%`
+      }
+    }})
+    .then(search_product => {
+      res.send(search_product);
+    })
+    .catch( err => {
+      console.log("Error : " + err);
+    });
+  },
 
-   	});
+  search_computer : (req,res,next) => {
+    const query = req.body.product_name;
+   	product_db.findAll( {where: {
+      product_category : 'Computer', 
+      product_name: {
+          [Op.like]: `%${query}%`
+      }
+    }})
+    .then(search_product => {
+      res.send(search_product);
+    })
+    .catch( err => {
+      console.log("Error : " + err);
+    });
+  },
+
+  search_TV : (req,res,next) => {
+    const query = req.body.product_name;
+   	product_db.findAll( {where: {
+      product_category : 'TV',
+      product_name: {
+          [Op.like]: `%${query}%`
+      }
+    }})
+    .then(search_product => {
+      res.send(search_product);
+    })
+    .catch( err => {
+      console.log("Error : " + err);
+    });
   },
 
   search_camera : (req,res,next) => {
-   	products.findAll({
-
-   	});
+    const query = req.body.product_name;
+   	product_db.findAll( {where: {
+      product_category : 'Camera',
+      product_name: {
+          [Op.like]: `%${query}%`
+      }
+    }})
+    .then(search_product => {
+      res.send(search_product);
+    })
+    .catch( err => {
+      console.log("Error : " + err);
+    });
   },
 
   search_headphone : (req,res,next) => {
-   	products.findAll({
-
-   	});
+    const query = req.body.product_name;
+   	product_db.findAll( {where: {
+      product_category : 'Headphones',
+      product_name: {
+          [Op.like]: `%${query}%`
+      }
+    }})
+    .then(search_product => {
+      res.send(search_product);
+    })
+    .catch( err => {
+      console.log("Error : " + err);
+    });
   }
 }

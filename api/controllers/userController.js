@@ -119,7 +119,7 @@ module.exports = {
   },
 
   userSearch : (req,res,next) => {
-    let email = req.body.user_email;
+    let email = req.query.email;
 
     userService.find(email)
     .then(search_user => {
