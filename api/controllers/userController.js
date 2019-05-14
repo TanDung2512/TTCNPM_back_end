@@ -71,8 +71,9 @@ module.exports = {
     let user = req.body;
 
     //  check whether account already created or not
-    userService.findAll(user.user_email)
+    userService.find(user.user_email)
     .then(search_user => {
+      console.log(search_user);
       if( search_user.length === 0 ){
 
         //Hash password
@@ -102,7 +103,20 @@ module.exports = {
         });
       }
     })
+  },
+
+  userLimitSearch : (req,res,next) => {
+    let offset = req.params.offset;
+    let limit = req.params.limit;
+
+    userService.findLimit(offset, limit)
+    .then(search_users => {
+      res.send(search_users);
+    })
+    .catch( err => {
+      console.log("Error : " + err);
+    });
   }
 
-
+  // End module
 }

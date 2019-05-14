@@ -1,0 +1,165 @@
+<% include ../partials/header.ejs %>
+    <% include ../partials/sidebar.ejs %>
+
+    <div class="pusher">
+        <% include ../partials/navbar.ejs %>
+            <script>
+                let xmlhttp = new XMLHttpRequest()
+                xmlhttp.onreadystatechange = function() {
+                    if (this.readyState == 4 && this.status == 200) {
+                        let pagination = document.getElementById("paginate-product")
+                        let leftArrow = document.createElement("a")
+                        let leftIcon = document.createElement("i")
+                        leftIcon.className += "left chevron icon"
+                        leftArrow.className += "icon item"
+                        leftArrow.appendChild(leftIcon)
+                        let rightArrow = document.createElement("a")
+                        let rightIcon = document.createElement("i")
+                        rightIcon.className += "right chevron icon"
+                        rightArrow.className += "icon item"
+                        rightArrow.appendChild(rightIcon)
+                        pagination.appendChild(leftArrow)
+                        let response = JSON.parse(this.responseText)
+                        for(i = 1; i<=response.numOfPages; i++)
+                        {
+                            let item = document.createElement('a')
+                            item.className += "item"
+                            let number = document.createTextNode(i)
+                            item.appendChild(number)
+                            pagination.appendChild(item)
+                        }
+                        pagination.appendChild(rightArrow)
+                    }
+                }
+                xmlhttp.open("GET", "http://localhost:3003/products", true)
+                xmlhttp.send()
+                let xml = new XMLHttpRequest()
+                xml.onreadystatechange = function() {
+                    if (this.readyState == 4 && this.status == 200) {
+                        let response = JSON.parse(this.responseText)
+                        let table, item, id, name, type, brand, category, price, amount
+                        table = document.getElementById('table')
+                        for(let i = 0; i<response.length; i++)
+                        {
+                            item = document.createElement('tr')
+                            id = document.createElement('td')
+                            name = document.createElement('td')
+                            type = document.createElement('td')
+                            brand = document.createElement('td')
+                            category = document.createElement('td')
+                            price = document.createElement('td')
+                            amount = document.createElement('td')
+                            id.appendChild(document.createTextNode(response.data[i].product_id))
+                            name.appendChild(document.createTextNode(response.data[i].product_name))
+                            type.appendChild(document.createTextNode(response.data[i].product_type))
+                            brand.appendChild(document.createTextNode(response.data[i].product_brand))
+                            category.appendChild(document.createTextNode(response.data[i].product_category))
+                            price.appendChild(document.createTextNode(response.data[i].sale_price))
+                            amount.appendChild(document.createTextNode(response.data[i].product_amount))
+                            item.appendChild(id)
+                            item.appendChild(name)
+                            item.appendChild(type)
+                            item.appendChild(brand)
+                            item.appendChild(category)
+                            item.appendChild(price)
+                            item.appendChild(amount)
+                            table.appendChild(item)
+                        }
+                    }
+                }
+                xml.open("GET", "http://localhost:3003/products/page/1", true)
+                xml.send()
+            </script>
+        <div class="custom-container" id="product-page">
+            <section class="ui segment" id="product-management">
+                <!-- Header -->
+                <div class="ui row">
+                    <h1 class="ui horizontal divider header">PRODUCT MANAGEMENT</h1>
+                </div>
+                <!-- /Header -->
+
+                <!-- Search box and Add button -->
+                <div class="ui row">
+                    <div class="ui grid"5>
+                        <div class="eight wide column">
+                            <button type="button" class="ui grey basic button">
+                                Create new product &nbsp;
+                                <i class="box icon"> </i>
+                            </button>
+                        </div>
+                        <div class="eight wide right floated column" >
+                            <div class="ui icon fluid input">
+                                <input type="text" placeholder="Search product by name...">
+                                <i class="inverted circular search link icon"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /Search box and Add button -->
+
+                <!-- Table -->
+                <div class="ui row" id="user-table">
+                    <table class="ui celled padded table">
+                        <thead>
+                            <tr>
+                                <th class="center aligned">ID</th>
+                                <th class="center aligned">Name</th>
+                                <th class="center aligned">Type</th>
+                                <th class="center aligned">Brand</th>
+                                <th class="center aligned single line">Category</th>
+                                <th class="center aligned single line">Amount</th>
+                                <th class="center aligned single line">Price</th>
+                            </tr>
+                        </thead>
+                        <tbody id="table">
+                            <!-- <tr>
+                                <td>
+                                    1
+                                </td>
+                                <td class="single line">
+                                    quandxbp@gmail.com
+                                </td>
+                                <td>
+                                    0981613096
+                                </td>
+                                <td>
+                                   Gay 
+                                </td>
+                                <td>
+                                    Quân
+                                </td>
+                                <td>
+                                    Bùi
+                                </td>
+                                <td>
+                                    Đồng Xoài, Bình Phước
+                                </td>
+                            </tr> -->
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th colspan="8">
+                                    <div class="ui right floated pagination menu" id="paginate-product">
+                                        <!-- <a class="icon item">
+                                            <i class="left chevron icon"></i>
+                                        </a>
+                                        <a class="item">1</a>
+                                        <a class="item">2</a>
+                                        <a class="item">3</a>
+                                        <a class="item">4</a>
+                                        <a class="item">5</a>
+                                        <a class="icon item">
+                                            <i class="right chevron icon"></i>
+                                        </a> -->
+                                    </div>
+                                </th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+                <!-- Table -->
+
+            </section>
+        </div>
+        
+<% include ../partials/footer.ejs %>
