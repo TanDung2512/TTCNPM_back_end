@@ -3,13 +3,11 @@ const path          = require('path');
 const cookieParser  = require('cookie-parser');
 const logger        = require('morgan');
 const usersRouter   = require('./api/routes/users');
-<<<<<<< HEAD
+
 const productRouter   = require('./api/routes/product');
 const searchRouter   = require('./api/routes/search');
-=======
-const searchRouter  = require('./api/routes/search');
 const cmsRouter     = require('./api/routes/cms');
->>>>>>> aa8512f92cc106409d656ce2bdbe3e9a44c9587b
+
 const app           = express();
 
 app.use(logger('dev'));
