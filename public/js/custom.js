@@ -264,7 +264,7 @@ function addUserToTable(id, email, phone, gender, firstName, lastName, address, 
                 <i class="trash icon"></i>
             </a>
             <a class="update-user">
-                <i class="info icon"></i>
+                <i class="info circle icon"></i>
             </a>
         </td>
     </tr>

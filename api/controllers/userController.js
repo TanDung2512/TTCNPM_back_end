@@ -19,11 +19,11 @@ module.exports = {
       is_female : 1,
     }
     * * * * * * * * * * * * * * * * * * */
-
+  
     userService.find(userInputMail)
     .then(search_user => {
 
-      if(search_user.length === 0){
+      if(search_user == undefined){
         res.status(200).json({
           success : false,
           message : 'Incorrect Username',
