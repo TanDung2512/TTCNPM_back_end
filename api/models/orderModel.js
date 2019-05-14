@@ -2,7 +2,7 @@ const Sequelize = require('sequelize');
 const Model = Sequelize.Model;
 const sequelize    = require('../../utils/mysql_connection.js');
 
-class wishList extends Model {}
+class order extends Model {}
 
 user.init({
 
@@ -36,4 +36,4 @@ user.init({
   createdAt: false,
 });
 
-module.exports = wishList;
+module.exports = order;

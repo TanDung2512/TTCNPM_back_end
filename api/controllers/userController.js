@@ -3,7 +3,7 @@ const key        = require("../../config/keys");
 const user_db    = require('../models/userModel');
 const bcrypt     = require('bcrypt');
 const saltRounds = 10;
-
+const cartService= require("../services/carts");
 const userService = require("../services/users");
 
 module.exports = {
@@ -35,6 +35,7 @@ module.exports = {
         .then( match => {
           if(match){
             let user_token = jwt.sign({
+              user_id       : search_user.user_id,
               user_email    : search_user.user_email,
               user_phone    : search_user.user_phone,
               role_id       : search_user.role_id,
@@ -71,9 +72,10 @@ module.exports = {
     let user = req.body;
 
     //  check whether account already created or not
-    userService.findAll(user.user_email)
+    userService.find(user.user_email)
     .then(search_user => {
-      if( search_user.length === 0 ){
+      console.log(search_user);
+      if( search_user == undefined ){
 
         //Hash password
         bcrypt.hash(user.user_password, saltRounds)
@@ -102,7 +104,44 @@ module.exports = {
         });
       }
     })
-  }
+  },
 
+  userLimitSearch : (req,res,next) => {
+    let offset = req.query.offset;
+    let limit = req.query.limit;
 
+    userService.findLimit(offset, limit)
+    .then(search_users => {
+      res.send(search_users);
+    })
+    .catch( err => {
+      console.log("Error : " + err);
+    });
+  },
+
+  userSearch : (req,res,next) => {
+    let email = req.query.email;
+
+    userService.find(email)
+    .then(search_user => {
+      res.send(search_user);
+    })
+    .catch( err => {
+      console.log("Error : " + err);
+    });
+  },
+
+  userDelete : (req,res,next) => {
+    let email = req.query.email;
+
+    userService.delete(email)
+    .then(search_user => {
+      res.send("Success deleting");
+    })
+    .catch( err => {
+      res.send("Error when deleting")
+    });
+  },
+
+  // End module
 }
