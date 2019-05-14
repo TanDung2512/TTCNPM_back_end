@@ -13,12 +13,14 @@ router.get('/allcategory', controller.search_allcategory);
 })
 */
 
-router.get('/computer', );
+router.get('/computer', controller.search_computer);
 
-router.get('/smartphone', );
+router.get('/smartphone',controller.search_smartphone );
 
-router.get('/TV',);
+router.get('/TV', controller.search_TV);
 
-router.get('/camera',);
+router.get('/camera', controller.search_camera);
 
-router.get('/headphone',);
+router.get('/headphone', controller.search_headphone);
+
+module.exports = router;
