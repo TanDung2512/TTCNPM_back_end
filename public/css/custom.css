@@ -179,3 +179,33 @@ body>.grid {
     margin-left: 10%;
     margin-right: 10%;
 }
+
+/* Customer User Management */
+#user-header {
+    margin-top: 3%;
+    margin-bottom: 3%;
+}
+
+#user-search {
+    margin-bottom: 2%;
+}
+
+.remove-user:hover {
+    cursor: pointer;
+    color: yellowgreen;
+}
+
+.remove-user {
+    color :grey;
+}
+
+.update-user:hover {
+    cursor: pointer;
+    color: yellowgreen;
+}
+
+/* Add user modal */
+
+#add-user-modal .label {
+    margin-top:5px;
+}

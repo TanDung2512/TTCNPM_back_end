@@ -74,7 +74,7 @@ module.exports = {
     userService.find(user.user_email)
     .then(search_user => {
       console.log(search_user);
-      if( search_user.length === 0 ){
+      if( search_user == undefined ){
 
         //Hash password
         bcrypt.hash(user.user_password, saltRounds)
@@ -106,8 +106,8 @@ module.exports = {
   },
 
   userLimitSearch : (req,res,next) => {
-    let offset = req.params.offset;
-    let limit = req.params.limit;
+    let offset = req.query.offset;
+    let limit = req.query.limit;
 
     userService.findLimit(offset, limit)
     .then(search_users => {
@@ -116,7 +116,31 @@ module.exports = {
     .catch( err => {
       console.log("Error : " + err);
     });
-  }
+  },
+
+  userSearch : (req,res,next) => {
+    let email = req.query.email;
+
+    userService.find(email)
+    .then(search_user => {
+      res.send(search_user);
+    })
+    .catch( err => {
+      console.log("Error : " + err);
+    });
+  },
+
+  userDelete : (req,res,next) => {
+    let email = req.query.email;
+
+    userService.delete(email)
+    .then(search_user => {
+      res.send("Success deleting");
+    })
+    .catch( err => {
+      res.send("Error when deleting")
+    });
+  },
 
   // End module
 }
