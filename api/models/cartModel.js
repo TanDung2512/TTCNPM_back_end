@@ -6,27 +6,20 @@ const product     = require('./productModel');
 class carts extends Model {}
 
 carts.init({
-
-  user_id     : {
-    type      : Sequelize.INTEGER,
-    allowNull : false,
-    primaryKey: true,
-    field     : 'user_id',
-    references: {
-      model : 'users',
-      key   : 'user_id'
-    }
-  },
   product_id  : {
     type      : Sequelize.STRING,
     primaryKey: true,
     field     : 'product_id',
     allowNull : false,
-    references: {
-      model : 'products',
-      key   : 'product_id'
-    }
-  }
+  },
+  user_id     : {
+    type      : Sequelize.INTEGER,
+    allowNull : false,
+    primaryKey: true,
+    field     : 'user_id',
+
+  },
+
 }, {
   sequelize,
   modelName: 'carts',
@@ -35,4 +28,5 @@ carts.init({
 });
 carts.hasOne(user,{foreignKey : 'user_id'});
 carts.hasMany(product, {foreignKey : 'product_id'})
+
 module.exports = carts;
