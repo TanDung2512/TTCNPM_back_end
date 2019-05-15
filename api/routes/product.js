@@ -7,7 +7,7 @@ var cors = require('cors')
 var con = mysql.createConnection({
     host: 'localhost',
     user: 'root',
-    password: '',
+    password: 'your new password',
     database: 'ecommerce'
 })
 
@@ -27,11 +27,7 @@ router.get('/bestseller',controller.get_top_seller);
 
 router.get('/newproduct',controller.get_new_product);
 
-<<<<<<< HEAD
 router.get('/detail',controller.get_product);
-module.exports = router;
-=======
-router.get('/best-seller');
 
 router.get('/', cors(), (req, res, next) => {
     con.query('SELECT * FROM products', (err, result, fields) => {
@@ -39,7 +35,7 @@ router.get('/', cors(), (req, res, next) => {
         let response = {
             length: result.length,
             numOfPages: result.length % 10 == 0 ? Math.floor(result.length/10) : Math.floor(result.length/10) + 1,
-        } 
+        }
         res.send(response)
     })
 })
@@ -69,7 +65,7 @@ router.get('/search/:search', cors(), (req, res, next) => {
 })
 
 router.post('/create', cors(), (req, res, next) => {
-    con.query(`INSERT INTO products (product_name, product_type, product_brand, product_category, product_amount, product_price, product_description) 
+    con.query(`INSERT INTO products (product_name, product_type, product_brand, product_category, product_amount, product_price, product_description)
     VALUES ('${req.body.name}', '${req.body.type}', '${req.body.brand}', '${req.body.category}', '${req.body.amount}', '${req.body.price}', '${req.body.desc}')`, (err, result, fields) => {
         if(err) {
             res.send("CREATE UNSUCCESSFUL")
@@ -81,4 +77,3 @@ router.post('/create', cors(), (req, res, next) => {
 })
 
 module.exports = router
->>>>>>> 97263ef8817896c2939d19968d293030315c4a8b
