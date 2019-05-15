@@ -1,0 +1,31 @@
+<div class="ui main inverted top menu">
+    <div class="ui container">
+        
+        <div class="ui header item nav-header">
+            <a href="/index?token=<%= token %>">
+                <i class="home icon"></i> CMS
+                <div class="ui blue circular label" > 1.0</div>
+            </a>
+        </div>
+        
+        <div class="right menu">
+
+            <div class="ui simple item">
+                <i class="user icon"></i> 
+                <%= userInfo.user_email%> 
+            </div>
+            <div class="ui simple dropdown item">
+                <a class="ui blue" href="/login">
+                    <i class="arrow circle right icon"></i> 
+                    Sign out
+                </a>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="ui sticky black big launch right attached fixed button toggle-sidebar">
+    <i class="content icon"></i>
+    <span class="text">Menu</span>
+</div>
