@@ -67,12 +67,14 @@ router.get('/search/:search', cors(), (req, res, next) => {
 })
 
 router.post('/create', cors(), (req, res, next) => {
-    con.query(`INSERT INTO products (product_name, product_type, product_brand, product_category, product_amount, product_price, product_description)
-    VALUES ('${req.body.name}', '${req.body.type}', '${req.body.brand}', '${req.body.category}', '${req.body.amount}', '${req.body.price}', '${req.body.desc}')`, (err, result, fields) => {
+    con.query(`INSERT INTO products (product_id, product_name, product_type, product_brand, product_category, product_amount, product_price, product_description)
+    VALUES ('${req.body.id}', '${req.body.name}', '${req.body.type}', '${req.body.brand}', '${req.body.category}', ${req.body.amount}, ${req.body.price}, '${req.body.desc}')`, (err, result, fields) => {
         if(err) {
+            console.log(err);
             res.send("CREATE UNSUCCESSFUL")
         }
         else{
+            
             res.send("CREATE SUCCESSFUL")
         }
     })
