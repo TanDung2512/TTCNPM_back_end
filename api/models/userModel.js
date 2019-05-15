@@ -41,7 +41,7 @@ user.init({
     allowNull : false,
     field     : 'role_id',
     references: {
-      key : 'role_id',
+    key : 'role_id',
     }
   },
   user_phone     : {

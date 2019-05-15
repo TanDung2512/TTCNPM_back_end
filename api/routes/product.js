@@ -2,6 +2,8 @@ const express    = require("express");
 let mysql = require('mysql')
 const router     = express.Router();
 const controller = require('../controllers/productController');
+const controllerProducts = require('../controllers/productsController');
+
 var cors = require('cors')
 
 var con = mysql.createConnection({

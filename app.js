@@ -3,6 +3,7 @@ const path          = require('path');
 const cookieParser  = require('cookie-parser');
 const logger        = require('morgan');
 const usersRouter   = require('./api/routes/users');
+<<<<<<< HEAD
 const productsRouter = require('./api/routes/product')
 const searchRouter  = require('./api/routes/search');
 const productRouter = require('./api/routes/product');
@@ -10,6 +11,14 @@ const cartRouter    = require('./api/routes/cart');
 const cmsRouter     = require('./api/routes/cms');
 var cors = require('cors')
 const app = express();
+=======
+
+const productRouter   = require('./api/routes/product');
+const searchRouter   = require('./api/routes/search');
+const cmsRouter     = require('./api/routes/cms');
+
+const app           = express();
+>>>>>>> Ngon
 
 app.use(cors())
 app.use(logger('dev'));
@@ -38,13 +47,21 @@ app.use(express.static(__dirname + '/public'));
 /*---------- route ----------*/
 app.use('/', cmsRouter);
 app.use('/users', usersRouter);
+<<<<<<< HEAD
 app.use('/products', productsRouter);
 // app.use('/search', searchRouter);
 app.use('/carts', cartRouter);
+=======
+app.use('/search', searchRouter);
+app.use('/products', productRouter);
+
+app.use('/compare', usersRouter);
+>>>>>>> Ngon
 app.use('/compare', usersRouter);
 app.use('/comment', usersRouter);
 app.use('/order', usersRouter);
 
+<<<<<<< HEAD
 // error page handler
 app.use(function (req, res, next) {
   res.status(404);
@@ -63,6 +80,22 @@ app.use(function (req, res, next) {
 
   // default to plain-text. send()
   res.type('txt').send('Not found');
+=======
+//Handling error
+app.use((req, res, next) =>{
+	const error = new Error('Not found');
+	error.status = 404
+	next(error);
+})
+
+app.use((error, rep, res, next) =>{
+	res.status(error.status || 500);
+	res.json({
+		error: {
+			message: error.message
+		}
+	});
+>>>>>>> Ngon
 });
 
 module.exports = app;
