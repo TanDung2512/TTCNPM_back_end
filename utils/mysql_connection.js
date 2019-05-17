@@ -13,6 +13,8 @@ const sequelize = new Sequelize(keys.MYSQL_DB_NAME,keys.MYSQL_USERNAME,keys.MYSQ
   }
 })
 
+
+
 sequelize
  .authenticate()
  .then(() => {
@@ -21,4 +23,5 @@ sequelize
  .catch(err => {
    console.error('Unable to connect to the database:', err);
  })
+
 module.exports = sequelize;

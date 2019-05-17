@@ -9,7 +9,7 @@ const userController = require('../controllers/userController');
 router.get("/index", checkAuthCms, function (req, res) {
     let token = req.query.token;
     let decoded = jwt.verify(token, keys.PRIVATE_KEY);
-    
+
     return res.render("index" , {token : token, userInfo: decoded});
 });
 

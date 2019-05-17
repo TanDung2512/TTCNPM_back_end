@@ -10,16 +10,6 @@ module.exports = {
   user_sign_in : (req,res,next) => {
     let userInputMail = req.body.user_email;
     let userInputPassword = req.body.user_password;
-    /* * * * * * * * * * * * * * * * * *
-    search_user =
-    {
-      user_mail : xxx,
-      user_id : xxx,
-      ....
-      is_female : 1,
-    }
-    * * * * * * * * * * * * * * * * * * */
-  
     userService.find(userInputMail)
     .then(search_user => {
 
