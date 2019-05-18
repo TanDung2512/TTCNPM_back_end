@@ -19,6 +19,9 @@ const keys= require('../../config/keys');
             message: 'Token is not valid',
           })
         } else {
+          if (decoded.role_id != 0) {
+            res.redirect("login", {message: "You do not allow to login "})
+          }
           req.decoded = decoded;
           next();
         }

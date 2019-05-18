@@ -62,15 +62,15 @@ module.exports = {
         .then(search_user => {
 
             if(search_user == undefined){
-                res.status(200).json({
-                    success : false,
-                    message : 'Incorrect Username',
-                })
+                return res.render("login", {message: "Your email is incorrect"});
             }
             else {
             // Compare user inputting password and found user' password
                 bcrypt.compare(userInputPassword, search_user.user_password)
                 .then( match => {
+                    if (search_user.role_id != 0) {
+                        return res.render("login", {message: "You do not allow to login "});
+                    }
                     if (match) {
                         let user_token = jwt.sign({
                             user_id       : search_user.user_id,
@@ -88,7 +88,7 @@ module.exports = {
                         return res.render("index", {userInfo: search_user})
                     }
                     else {
-                        return res.redirect("login");
+                        return res.render("login", {message: "Your password is incorrect"});
                     }
                 })
                 .catch( err => {
