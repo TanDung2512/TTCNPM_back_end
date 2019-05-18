@@ -2,29 +2,21 @@ const express    = require("express");
 const router     = express.Router();
 const jwt        = require('jsonwebtoken');
 const keys       = require('../../config/keys');
-const checkAuth = require('../middleware/checkAdmin');
+const checkAuthCms = require('../middleware/checkAdmin');
 
 const userController = require('../controllers/userController');
-
-router.get("/index", checkAuthCms, function (req, res) {
-    let token = req.query.token;
-    let decoded = jwt.verify(token, keys.PRIVATE_KEY);
-
-    return res.render("index" , {token : token, userInfo: decoded});
-});
+const adminController = require('../controllers/adminController');
 
 router.get("/user-management", checkAuthCms , function(req, res, next) {
-    let token = req.query.token;
-    let decoded = jwt.verify(token, keys.PRIVATE_KEY);
+    let userInfo = req.decoded;
 
-    return res.render("cms/userManagement", {token : token, userInfo: decoded});
+    return res.render("cms/userManagement", {userInfo: userInfo});
 });
 
 router.get("/product-management", checkAuthCms, function (req, res) {
-    let token = req.query.token;
-    let decoded = jwt.verify(token, keys.PRIVATE_KEY);
+    let userInfo = req.decoded;
 
-    return res.render("cms/productManagement", {token : token, userInfo: decoded});
+    return res.render("cms/productManagement", {userInfo: userInfo});
 });
 
 // LOGIN PAGE
@@ -32,7 +24,12 @@ router.get("/login", function (req, res) {
     return res.render("login");
 });
 
-// HANDLE LOGIN LOGIC
-router.post("/cms", userController.user_sign_in);
+router.get("/cms" ,checkAuthCms ,function (req, res) {
+    let userInfo = req.decoded;
+
+    return res.render("index", {userInfo: userInfo});
+});
+
+router.post("/cms" ,adminController.admin_sign_in);
 
 module.exports = router;

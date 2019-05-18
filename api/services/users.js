@@ -77,6 +77,7 @@ module.exports = {
                 user_firstname : updateData.user_phone,
                 user_lastname : updateData.user_lastname,
                 user_address : updateData.user_address,
+                role_id : updateData.role_id,
             },
             {
                 where : {

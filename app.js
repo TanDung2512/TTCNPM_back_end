@@ -8,10 +8,11 @@ const searchRouter  = require('./api/routes/search');
 const productRouter = require('./api/routes/product');
 const cartRouter    = require('./api/routes/cart');
 const cmsRouter     = require('./api/routes/cms');
-var cors = require('cors')
+const cors = require('cors')
 const app = express();
 
 app.use(cors())
+app.use(cookieParser())
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));

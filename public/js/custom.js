@@ -1,5 +1,5 @@
 $(document).ready(function(){
-    var flagUpdateCreate = false;
+    var flagUpdate = false;
     // Get data in the first time when access to page
     getUsersToDisplay(1,10);
 
@@ -82,7 +82,7 @@ $(document).ready(function(){
 
     // Add new user
     $("body").on("click", "#add-user-btn", function() {
-        flagUpdateCreate = false;
+        flagUpdate = false;
         $('#add-user-modal').modal({
             blurring: true,
             closable: false,
@@ -101,7 +101,7 @@ $(document).ready(function(){
     // Update user information
     $("body").on("click", ".update-user", function() {
         let email = $(this).closest("tr").find(".user-email").text();
-        flagUpdateCreate = true;
+        flagUpdate = true;
 
         $.ajax({
             type: 'GET',
@@ -127,6 +127,7 @@ $(document).ready(function(){
                         $("input[name=modalUserFirstname]").val(result.user_firstname);
                         $("input[name=modalUserLastname]").val(result.user_lastname);
                         $("input[name=modalUserAddress]").val(result.user_address);
+                        $("select[name=modalUserRole]").val(result.role_id);
                     }
                     // show modal
                 }).modal('show');
@@ -148,8 +149,9 @@ $(document).ready(function(){
         let user_firstname = $("input[name=modalUserFirstname]").val();
         let user_lastname = $("input[name=modalUserLastname]").val();
         let user_address = $("input[name=modalUserAddress]").val();
+        let user_role = $("select[name=modalUserRole]").val();
 
-        if (flagUpdateCreate == false) {
+        if (flagUpdate == false) {
             $.ajax({
                 type: 'POST',
                 data: {
@@ -160,7 +162,7 @@ $(document).ready(function(){
                     user_firstname : user_firstname,
                     user_lastname : user_lastname,
                     user_address : user_address,
-                    role_id: 0,
+                    role_id: user_role,
                 },
                 url: '/users/signup',
                 success: (result) => {
@@ -173,6 +175,7 @@ $(document).ready(function(){
             });
         }
         else {
+            console.log(user_role);
             $.ajax({
                 type: 'GET',
                 data: {
@@ -183,6 +186,7 @@ $(document).ready(function(){
                         user_firstname : user_firstname,
                         user_lastname : user_lastname,
                         user_address : user_address,
+                        role_id: user_role,
                     }
                 },
                 url: '/users/update-user',
@@ -201,46 +205,44 @@ $(document).ready(function(){
     $("#search-user").keyup(function(){
         let userMail = $(this).val();
         
-        if (userMail.length > 3) {
-            console.log(userMail.length);
-            $.ajax({
-                type: 'GET',
-                data: {
-                    email: userMail
-                },
-                url: '/users/search',
-                success: (result) => {
-                    if (result != []) {
-                        // Clear tbody content
-                        $("#user-table tbody").text("");
-                        // Get data to display
-                        for (let i = 0; i< result.length; i++) {
-                            let id = result[i].user_id;
-                            let email = result[i].user_email;
-                            let phone = result[i].user_phone;
-                            let gender = result[i].is_female;
-                            let firstName = result[i].user_firstname;
-                            let lastName = result[i].user_lastname;
-                            let address = result[i].user_address;
-                            let role_id = result[i].role_id;
-                            $("#user-table tbody").append(
-                                addUserToTable(id, email, phone, gender, firstName, lastName, address, role_id)
-                            );
-                            
-                            // Add pop-up to icon
-                            addUserPopup();
-                        }
+        $.ajax({
+            type: 'GET',
+            data: {
+                email: userMail
+            },
+            url: '/users/search',
+            success: (result) => {
+                if (result != []) {
+                    // Clear tbody content
+                    $("#user-table tbody").text("");
+                    // Get data to display
+                    for (let i = 0; i< result.length; i++) {
+                        let id = result[i].user_id;
+                        let email = result[i].user_email;
+                        let phone = result[i].user_phone;
+                        let gender = result[i].is_female;
+                        let firstName = result[i].user_firstname;
+                        let lastName = result[i].user_lastname;
+                        let address = result[i].user_address;
+                        let role_id = result[i].role_id;
+                        $("#user-table tbody").append(
+                            addUserToTable(id, email, phone, gender, firstName, lastName, address, role_id)
+                        );
+                        
+                        // Add pop-up to icon
+                        addUserPopup();
                     }
-                    else {
-                        // Display message if there is no data to display
-                        addNoDataMessage();
-                    }
-                },
-                error: (err) => {
-                    console.log(err);
                 }
-            });
-        }
+                else {
+                    // Display message if there is no data to display
+                    addNoDataMessage();
+                }
+            },
+            error: (err) => {
+                console.log(err);
+            }
+        });
+        
     });
 });
 

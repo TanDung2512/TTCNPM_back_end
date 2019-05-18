@@ -2,8 +2,9 @@ const jwt = require('jsonwebtoken');
 const keys= require('../../config/keys');
 
   checkAuthCms = (req,res,next) => {
-    // let token = req.headers['authorization'];
-    let token = req.query.token;
+    let token = req.cookies.jwtToken;
+    console.log(token);
+    
     if (token == undefined) {
         return res.render("login");
     }
@@ -19,7 +20,6 @@ const keys= require('../../config/keys');
           })
         } else {
           req.decoded = decoded;
-          console.log(decoded);
           next();
         }
       });
