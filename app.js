@@ -6,6 +6,8 @@ const usersRouter   = require('./api/routes/users');
 const productsRouter = require('./api/routes/product')
 const searchRouter  = require('./api/routes/search');
 const productRouter = require('./api/routes/product');
+const orderRouter = require('./api/routes/order');
+
 const cartRouter    = require('./api/routes/cart');
 const cmsRouter     = require('./api/routes/cms');
 var cors = require('cors')
@@ -42,7 +44,7 @@ app.use('/carts', cartRouter);
 app.use('/search', searchRouter);
 app.use('/products', productRouter);
 app.use('/compare', usersRouter);
-
+app.use('/order',orderRouter);
 // error page handler
 app.use(function (req, res, next) {
   res.status(404);
