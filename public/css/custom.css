@@ -180,6 +180,15 @@ body>.grid {
     margin-right: 10%;
 }
 
+#dashboard .ui.segment:hover {
+    background-color: #ee8a83c4
+}
+
+#dashboard .director {
+    margin:3% 5% 5%;
+    
+}
+
 /* Customer User Management */
 #user-header {
     margin-top: 3%;
@@ -207,5 +216,6 @@ body>.grid {
 /* Add user modal */
 
 #add-user-modal .label {
-    margin-top:5px;
+    margin-top: 3%;
 }
+

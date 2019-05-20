@@ -2,8 +2,9 @@ const jwt = require('jsonwebtoken');
 const keys= require('../../config/keys');
 
   checkAuthCms = (req,res,next) => {
-    // let token = req.headers['authorization'];
-    let token = req.query.token;
+    let token = req.cookies.jwtToken;
+    console.log(token);
+    
     if (token == undefined) {
         return res.render("login");
     }
@@ -18,8 +19,10 @@ const keys= require('../../config/keys');
             message: 'Token is not valid',
           })
         } else {
+          if (decoded.role_id != 0) {
+            res.redirect("login", {message: "You do not allow to login "})
+          }
           req.decoded = decoded;
-          console.log(decoded);
           next();
         }
       });

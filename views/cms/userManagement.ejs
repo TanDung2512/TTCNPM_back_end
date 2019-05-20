@@ -84,17 +84,17 @@
 
                 <!-- {{!-- Model header --}} -->
                 <div class="header">
-                    New user information
+                    NEW USER INFORMATION
                 </div>
                 <!-- {{!-- /Model header --}} -->
                 <div class="content">
                     <div class="ui grid">
                         
                         <!-- User email -->
-                        <div class="eight wide column">
-                            <h3 class="ui label">Email</h3>
+                        <div class="four wide column">
+                            <label class="ui teal label"><strong>Email</strong></label>
                         </div>
-                        <div class="eight wide column">
+                        <div class="twelve wide column">
                             <div class="ui fluid input focus">
                                 <input type="text" placeholder="quandxbp@gmail.com" name="modalUserMail">
                             </div>
@@ -102,10 +102,10 @@
                         <!-- /User email -->
 
                         <!-- User Password -->
-                        <div class="eight wide column">
-                            <h3 class="ui label">Password</h3>
+                        <div class="four wide column">
+                            <label class="ui label"><strong>Password</strong></label>
                         </div>
-                        <div class="eight wide column">
+                        <div class="twelve wide column">
                             <div class="ui fluid input">
                                 <input type="password" placeholder="Enter your password" name="modalUserPassword">
                             </div>
@@ -113,10 +113,10 @@
                         <!-- /User Password -->
 
                         <!-- User phone -->
-                        <div class="eight wide column">
-                            <h3 class="ui label">Phone number</h3>
+                        <div class="four wide column">
+                            <h3 class="ui label"><strong>Phone number</strong></h3>
                         </div>
-                        <div class="eight wide column">
+                        <div class="twelve wide column">
                             <div class="ui fluid input">
                                 <input type="text" placeholder=" 0123456798" name="modalUserPhone">
                             </div>
@@ -124,14 +124,15 @@
                         <!-- /User phone -->
 
                         <!-- User gender -->
-                        <div class="eight wide column">
-                            <h3 class="ui label">Gender</h3>
+                        <div class="four wide column">
+                            <h3 class="ui label" style="margin-top:-3%"><strong>Gender</strong></h3>
                         </div>
-                        <div class="eight wide column">
+                        <div class="twelve wide column">
                             <div class="ui radio checkbox">
                                 <input type="radio" name="modalUserGender" checked="checked" value="0">
                                 <label>Male</label>
                             </div>
+                            &nbsp;
                             <div class="ui radio checkbox">
                                 <input type="radio" name="modalUserGender" value="1">
                                 <label>Female</label>
@@ -140,10 +141,10 @@
                         <!-- /User gender -->
 
                         <!-- User First name -->
-                        <div class="eight wide column">
-                            <h3 class="ui label">First name</h3>
+                        <div class="four wide column">
+                            <h3 class="ui label"><strong>First Name</strong></h3>
                         </div>
-                        <div class="eight wide column">
+                        <div class="twelve wide column">
                             <div class="ui fluid input">
                                 <input type="text" placeholder="Bùi" name="modalUserFirstname">
                             </div>
@@ -151,10 +152,10 @@
                         <!-- /User First name -->
 
                         <!-- User last name -->
-                        <div class="eight wide column">
-                            <h3 class="ui label">Last name</h3>
+                        <div class="four wide column">
+                            <h3 class="ui label"><strong>Last name</strong></h3>
                         </div>
-                        <div class="eight wide column">
+                        <div class="twelve wide column">
                             <div class="ui fluid input">
                                 <input type="text" placeholder="Quân" name="modalUserLastname">
                             </div>
@@ -162,13 +163,25 @@
                         <!-- User last name -->
 
                         <!-- User address -->
-                        <div class="eight wide column">
-                            <h3 class="ui label">Address</h3>
+                        <div class="four wide column">
+                            <h3 class="ui label"><strong>Address</strong></h3>
                         </div>
-                        <div class="eight wide column">
+                        <div class="twelve wide column">
                             <div class="ui fluid input">
                                 <input type="text" placeholder="497, Hoa Hao, P.7, Q.10" name="modalUserAddress">
                             </div>
+                        </div>
+                        <!-- User address -->
+
+                        <!-- User address -->
+                        <div class="four wide column">
+                            <h2 class="ui label" style="margin-top:7%"><strong>Role</strong></h2>
+                        </div>
+                        <div class="twelve wide column">
+                            <select name="modalUserRole">
+                                <option value="0">Admin</option>
+                                <option value="1">Customer</option>
+                            </select>
                         </div>
                         <!-- User address -->
                         

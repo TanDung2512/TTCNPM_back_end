@@ -23,15 +23,18 @@
             </div>
 
             <!-- Login Form -->
-            <div>
+            <form method="POST" action="/cms">
                 <input type="text"  class="fadeIn second" name="user_email" placeholder="Email">
                 <input type="password"  class="fadeIn third" name="user_password" placeholder="Password">
                 <input type="submit" id="login-btn" class="fadeIn fourth" value="Log In">
-            </div>
+            </form >
 
             <!-- Remind Passowrd -->
             <div id="formFooter">
-                <a class="underlineHover" href="">Forgot Password?</a>
+                <% if(typeof message != 'undefined') {%>
+
+                    <h2 style="color:red"><%=message %></h2>
+                <% } %>
             </div>
 
         </div>
@@ -40,31 +43,31 @@
 
 <script>
 
-$(document).ready(function(){
-    $("#login-btn").on("click", function() {
-        let user_email = $("input[name=user_email]").val();
-        let user_password = $("input[name=user_password]").val();
+// $(document).ready(function(){
+//     $("#login-btn").on("click", function() {
+//         let user_email = $("input[name=user_email]").val();
+//         let user_password = $("input[name=user_password]").val();
 
-        $.ajax({
-            type: 'POST',
-            data : {
-                user_email: user_email,
-                user_password : user_password,
-            },
-            url: '/cms',
-            success(result) {
-                if (result.success) {
-                    window.location.href = '/index?token='+ result.token;
-                }
-                else {
-                    location.reload();
-                }
-            }
-        });
-    });
+//         $.ajax({
+//             type: 'POST',
+//             data : {
+//                 user_email: user_email,
+//                 user_password : user_password,
+//             },
+//             url: '/cms',
+//             success(result) {
+//                 if (result.success) {
+//                     window.location.href = '/index?token='+ result.token;
+//                 }
+//                 else {
+//                     location.reload();
+//                 }
+//             }
+//         });
+//     });
     
     
-});
+// });
 
 
 
