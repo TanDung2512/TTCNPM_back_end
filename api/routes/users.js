@@ -18,14 +18,4 @@ router.get("/find-user", controller.userFindInfo);
 
 router.get("/update-user", controller.userUpdate);
 
-// router.patch("/promoteadmin",);
 module.exports = router;
-
-
-/*
-  get : lay
-  post : them moi + tao + bao mat
-  patch : thay doi
-  delete : xoa
-
-*/

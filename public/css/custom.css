@@ -106,6 +106,23 @@ body>.grid {
     text-align: left;
 }
 
+select {
+    width: 100%; 
+    padding: 8px; 
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box; 
+    resize: vertical
+}
+
+option {
+    width: 100%; 
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box; 
+    resize: vertical
+}
+
 /* Quan - custom for nav bar */
 .nav-header .label {
     margin-top: -20px;

@@ -3,68 +3,30 @@
 
     <div class="pusher">
         <% include ../partials/navbar.ejs %>
-            
-        <div class="custom-container" id="product-page">
+
+        <div class="custom-container">
             <section class="ui segment" id="product-management">
                 <!-- Header -->
-                <div class="ui row">
-                    <h1 class="ui horizontal divider header first-header">PRODUCT MANAGEMENT</h1>
+                <div class="ui row" id="product-header">
+                    <h1 class="ui horizontal divider header">PRODUCTS MANAGEMENT</h1>
                 </div>
                 <!-- /Header -->
 
                 <!-- Search box and Add button -->
-                <div class="ui row " style="margin-bottom:2%;">
+                <div class="ui row" id="product-search">
                     <div class="ui grid"5>
                         <div class="eight wide column">
-                            <button type="button" class="ui grey basic button" id="modalButton" onclick="showModal()">
-                                Create new product &nbsp;
-                                <i class="box icon"> </i>
+                            <button id="add-product-btn" type="button" class="ui grey basic button">
+                                Add new &nbsp;
+                                <i class="dolly icon"> </i>
                             </button>
-                        </div>
-                        <div id="myModal" class="modal">
-
-                            <!-- Modal content -->
-                            <div class="modal-content">
-                                <span class="close" onclick="closeModal()">&times;</span>
-                                <div class="ui row">
-                                    <br>
-                                    <h3 class="ui horizontal divider header">CREATE PRODUCT</h3>
-                                </div>
-                                <form>
-                                    <label for="pid">Product ID</label>
-                                    <input type="text" id="pid" name="pid" placeholder="Product ID..">
-
-                                    <label for="pname">Product Name</label>
-                                    <input type="text" id="pname" name="pname" placeholder="Product name..">
-                                
-                                    <label for="ptype">Product Type</label>
-                                    <input type="text" id="ptype" name="ptype" placeholder="Product type..">
-
-                                    <label for="pbrand">Product Brand</label>
-                                    <input type="text" id="pbrand" name="pbrand" placeholder="Product brand..">
-
-                                    <label for="pcategory">Product Category</label>
-                                    <input type="text" id="pcategory" name="pcategory" placeholder="Product category..">
-                                
-                                    <label for="pamount">Product Amount</label>
-                                    <input type="number" id="pamount" name="pamount" placeholder="Product amount..">
-
-                                    <label for="pprice">Product Price</label>
-                                    <input type="number" id="pprice" name="pprice" placeholder="Product price..">
-
-                                    <label for="desc">Description</label>
-                                    <textarea id="desc" name="desc" placeholder="Product description.." style="height:200px"></textarea>
-                                
-                                    <input type="button" value="Create" onclick="createProduct()">
-                                </form>
-                            </div>
-                        
                         </div>
                         <div class="eight wide right floated column" >
                             <div class="ui icon fluid input">
-                                <input id="searchBar" type="text" placeholder="Search product by name..." onchange="search()">
+                                <input id="search-product" class="prompt" type="text" placeholder="Search product by name...">
                                 <i class="inverted circular search link icon"></i>
                             </div>
+                            <div class="results"></div>
                         </div>
                     </div>
                 </div>
@@ -79,18 +41,32 @@
                                 <th class="center aligned">Name</th>
                                 <th class="center aligned">Type</th>
                                 <th class="center aligned">Brand</th>
-                                <th class="center aligned single line">Category</th>
-                                <th class="center aligned single line">Amount</th>
-                                <th class="center aligned single line">Price</th>
+                                <th class="center aligned">Price</th>
+                                <th class="center aligned">Qty</th>
+                                <th class="center aligned">Cat</th>
+                                <th class="center aligned">Color</th>
+                                <th class="center aligned">Weight</th>
+                                <th class="center aligned">Actions</th>
                             </tr>
                         </thead>
-                        <tbody id="table">
+                        <tbody>
+
                         </tbody>
                         <tfoot>
                             <tr>
-                                <th colspan="8">
-                                    <div class="ui right floated pagination menu" id="paginate-product">
-
+                                <th colspan="10">
+                                    <div class="ui right floated pagination menu" id="page">
+                                        <a class="icon item">
+                                            <i class="left chevron icon"></i>
+                                        </a>
+                                        <a class="item">1</a>
+                                        <a class="item">2</a>
+                                        <a class="item">3</a>
+                                        <a class="item">4</a>
+                                        <a class="item">5</a>
+                                        <a class="icon item">
+                                            <i class="right chevron icon"></i>
+                                        </a>
                                     </div>
                                 </th>
                             </tr>
@@ -100,6 +76,172 @@
                 <!-- Table -->
 
             </section>
+
+            <!-- Modal -->
+            <div class="ui modal" id="add-product-modal">
+                <!-- {{!-- Close icon --}} -->
+                <i class="close icon close-modal-btn"></i>
+                <!-- {{!-- /Close icon --}} -->
+
+                <!-- {{!-- Model header --}} -->
+                <div class="header">
+                    NEW PRODUCT INFORMATION
+                </div>
+                <!-- {{!-- /Model header --}} -->
+                <div class="content">
+                    <div class="ui fields">
+                        <div class="field">
+                            <div class="ui grid">
+                                <!-- Product image -->
+                                <div class="six wide column">
+                                    <img id="product-img" src="/img/white-image.png"/>
+                                    <input id="product-img-input" type="file" accept='image/*' />
+                                </div>
+                                <!-- Product image -->
+                                
+                                <div class="ten wide column">
+                                    
+                                    <div class="ui fields">
+                                        <!-- Product name -->
+                                        <div class="field">
+                                            <label class="ui teal label"><strong>Name</strong></label>
+                                            <div class="ui fluid input focus">
+                                                <input type="text" placeholder="Samsung Galaxy Note 9" name="modalProductName">
+                                            </div>
+                                        </div>
+                                        <!-- Product name -->
+
+                                        <!-- Product Category -->
+                                        <div class="field mt-7">
+                                            <label class="ui label"><strong>Category</strong></label>
+                                            <select name="modalProductCat">
+                                                <option value="Phone">Phone</option>
+                                                <option value="Tablet">Tablet</option>
+                                                <option value="TV">TV</option>
+                                                <option value="Laptop">Laptop</option>
+                                            </select>
+                                        </div>
+                                        <!-- Product Category -->
+                                        
+                                        <!-- Product Color -->
+                                        <div class="field mt-7">
+                                            <label class="ui label"><strong>Color</strong></label>
+                                            <select name="modalProductColor">
+                                                <option value="White">White</option>
+                                                <option value="Black">Black</option>
+                                                <option value="Red">Red</option>
+                                                <option value="Green">Green</option>
+                                                <option value="Blue">Blue</option>
+                                                <option value="Yellow">Yellow</option>
+                                                <option value="Purple">Purple</option>
+                                                <option value="Orange">Orange</option>
+                                            </select>
+                                        </div>
+                                        <!-- Product Color -->
+
+                                        <!-- Product Brand -->
+                                        <div class="field mt-7">
+                                            <label class="ui label"><strong>Brand</strong></label>
+                                            <select name="modalProductBrand">
+                                                <option value="Samsung">Samsung</option>
+                                                <option value="Apple">Apple</option>
+                                                <option value="Huawei">Huawei</option>
+                                                <option value="Oppo">Oppo</option>
+                                                <option value="Sony">Sony</option>
+                                                <option value="LG">LG</option>
+                                            </select>
+                                        </div>
+                                        <!-- Product Brand -->
+                                    </div>
+                                    
+                                </div>
+                                
+                            </div>
+                        </div>
+
+                        <!-- field -->
+                        <div class="field">
+                            <!-- grid -->
+                            <div class="ui grid">
+                                <!-- Product Description -->
+                                <div class="six wide column">
+                                    <label class="ui label"><strong>Description</strong></label>
+                                </div>
+                                <div class="ten wide column">
+                                    <div class="ui fluid input">
+                                        <textarea placeholder="Describe about your product" name="modalProductDescript"> </textarea>
+                                    </div>
+                                </div>
+                                <!-- /Product Description -->
+        
+                                <!-- Product Type -->
+                                <div class="six wide column">
+                                    <h3 class="ui label"><strong>Type</strong></h3>
+                                </div>
+                                <div class="ten wide column">
+                                    <div class="ui fluid input">
+                                        <input type="text" placeholder="Smart phone" name="modalProductType">
+                                    </div>
+                                </div>
+                                <!-- Product Type -->
+        
+                                <!-- Product Price -->
+                                <div class="six wide column">
+                                    <h3 class="ui label"><strong>Price</strong></h3>
+                                </div>
+                                <div class="ten wide column">
+                                    <div class="ui fluid input">
+                                        <input type="text" placeholder="Price value" name="modalProductPrice">
+                                    </div>
+                                </div>
+                                <!-- Product Price -->
+        
+                                <!-- Product Quantity -->
+                                <div class="six wide column">
+                                    <h3 class="ui label"><strong>Quantity</strong></h3>
+                                </div>
+                                <div class="ten wide column">
+                                    <div class="ui fluid input">
+                                        <input type="number" placeholder="Quantity" name="modalProductQty">
+                                    </div>
+                                </div>
+                                <!-- Product Quantity -->
+                                
+                                <!-- Product Weight -->
+                                <div class="six wide column">
+                                    <h3 class="ui label"><strong>Weight</strong></h3>
+                                </div>
+                                <div class="ten wide column">
+                                    <div class="ui fluid input">
+                                        <input type="number" placeholder="Weight" name="modalProductWeight">
+                                    </div>
+                                </div>
+                                <!-- Product Weight -->
+                            </div>
+                            <!-- /field -->
+                        </div>
+                        <!-- /grid -->
+                        
+                        
+                    </div>
+
+                </div>
+                <!-- {{!-- Modal Footer --}} -->
+                <div class="actions">
+                    <div class="ui negative left labeled left floated icon button close-modal-btn">
+                        Close
+                        <i class="times icon"></i>
+                    </div>
+                    <div id="finish-create-product-btn" class="ui positive right labeled icon button">
+                        Finish
+                        <i class="checkmark icon"></i>
+                    </div>
+                </div>
+                <!-- {{!-- /Modal Footer --}} -->
+            </div>
+            <!-- Modal -->
         </div>
+
+
         
 <% include ../partials/footer.ejs %>
