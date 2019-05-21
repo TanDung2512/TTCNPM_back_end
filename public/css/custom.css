@@ -236,3 +236,7 @@ option {
     margin-top: 3%;
 }
 
+#user-info-href:hover {
+    color: #ee8a83c4;
+}
+
