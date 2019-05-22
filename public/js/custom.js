@@ -87,10 +87,12 @@ $(document).ready(function(){
             blurring: true,
             closable: false,
             onShow: function () {
+                
                 $("#add-user-modal").css("margin-top","-20%");
                 $("#add-user-modal").css("margin-left","-28%");
 
                 // Get user information from table
+    
                 $("input[name=modalUserPassword]").attr("disabled", false);
                 $("input[name=modalUserMail]").attr("disabled", false);
             }
@@ -286,5 +288,9 @@ function addUserPopup() {
         .popup({
             content: 'Update information'
         });
+}
+
+function ClearModal() {
+    $(".ui .modal").form('reset');
 }
 

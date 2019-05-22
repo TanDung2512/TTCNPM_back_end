@@ -2,56 +2,84 @@ const mysql = require('mysql')
 const key = require('../../config/keys');
 const bcrypt     = require('bcrypt');
 const jwt        = require('jsonwebtoken');
-const saltRounds = 10;
 
 const userService = require("../services/users");
-
-const con = mysql.createConnection({
-    host: key.MYSQL_HOST,
-    user: key.MYSQL_USERNAME,
-    password: key.MYSQL_PASSWORD,
-    database: key.MYSQL_DB_NAME
-})
-
-con.connect((err) => {
-    if(err) throw err
-})
+const productService = require("../services/products")
 
 module.exports = {
-    getAllProduct : (req, res, next) => {
-        con.query('SELECT * FROM products', (err, result, fields) => {
-            if(err) throw err
-            let response = {
-                length: result.length,
-                numOfPages: result.length % 10 == 0 ? Math.floor(result.length/10) : Math.floor(result.length/10) + 1,
-            }
-            res.send(response)
-        })
-    },
-    searchProductByName : (req, res, next) => {
-        con.query(`SELECT * FROM products WHERE product_name LIKE '${req.params.search}%'`, (err, result, fields) => {
-            if(err) throw err
-            let response = {
-                length: result.length,
-                numOfPages: result.length % 10 == 0 ? Math.floor(result.length/10) : Math.floor(result.length/10) + 1,
-                data: result
-            }
-            console.log(response)
-            res.send(response)
-        })
-    },
-    insertProduct : (req, res, next) => {
-        con.query(`INSERT INTO products (product_id, product_name, product_type, product_brand, product_category, product_amount, product_price, product_description)
-        VALUES ('${req.body.id}', '${req.body.name}', '${req.body.type}', '${req.body.brand}', '${req.body.category}', ${req.body.amount}, ${req.body.price}, '${req.body.desc}')`, (err, result, fields) => {
-            if(err) {
-                console.log(err);
-                res.send("CREATE UNSUCCESSFUL")
-            }
-            else{
+    productLimitSearch : (req,res,next) => {
+        let page = req.query.page;
+        let offset = (parseInt(page) - 1) * 10;
 
-                res.send("CREATE SUCCESSFUL")
-            }
+        productService.getPageProduct(offset)
+        .then(search_products => {
+            res.send(search_products);
         })
+        .catch( err => {
+            console.log("Error : " + err);
+        });
+    },
+
+    productDelete : (req,res,next) => {
+        let product_id = req.query.product_id;
+        
+        productService.delete(product_id)
+        .then(search_user => {
+          res.send("Success deleting");
+        })
+        .catch( err => {
+          res.send("Error when deleting")
+        });
+    },
+
+    productSearch : (req,res,next) => {
+        let product_name = req.query.product_name;
+        let limit = 10;
+
+        productService.findAllLikeAndLimit(product_name, limit)
+        .then(search_products => {
+            res.send(search_products);
+        })
+        .catch( err => {
+            console.log("Error : " + err);
+        });
+    },
+
+    productCreate : (req,res,next) => {
+        let data = req.body;
+
+        productService.create(data)
+        .then(search_products => {
+            res.send(search_products);
+        })
+        .catch( err => {
+            console.log("Error : " + err);
+        });
+    },
+
+    productUpdateByName : (req,res,next) => {
+        let updateData = req.query.updateData;
+        let product_name = req.query.product_name;
+
+        productService.updateByName(product_name, updateData)
+        .then(search_products => {
+            res.send(search_products);
+        })
+        .catch( err => {
+            console.log("Error : " + err);
+        });
+    },
+
+    productFindInfo: (req,res,next) => {
+        let product_id = req.query.productId;
+
+        productService.findById(product_id)
+        .then(search_products => {
+            res.send(search_products);
+        })
+        .catch( err => {
+            console.log("Error : " + err);
+        });
     },
 
     admin_sign_in : (req,res,next) => {
@@ -68,9 +96,11 @@ module.exports = {
             // Compare user inputting password and found user' password
                 bcrypt.compare(userInputPassword, search_user.user_password)
                 .then( match => {
+                    // If user is not admin
                     if (search_user.role_id != 0) {
                         return res.render("login", {message: "You do not allow to login "});
                     }
+
                     if (match) {
                         let user_token = jwt.sign({
                             user_id       : search_user.user_id,

@@ -19,6 +19,12 @@ router.get("/product-management", checkAuthCms, function (req, res) {
     return res.render("cms/productManagement", {userInfo: userInfo});
 });
 
+router.get("/user-information", checkAuthCms, function (req, res) {
+    let userInfo = req.decoded;
+
+    return res.render("cms/userInformation", {userInfo: userInfo});
+});
+
 // LOGIN PAGE
 router.get("/login", function (req, res) {
     return res.render("login");

@@ -1,0 +1,101 @@
+<% include ../partials/header.ejs %>
+    <% include ../partials/sidebar.ejs %>
+
+    <div class="pusher">
+        <% include ../partials/navbar.ejs %>
+        <div class="custom-container">
+            <section class="ui segment" id="user-information">
+                <!-- Header -->
+                <div class="ui row">
+                    <h1 class="ui horizontal divider header">USERS INFORMATION</h1>
+                </div>
+                <!-- /Header -->
+
+                <div class="ui form">
+                    <div class="two fields">
+                        <!-- Email -->
+                        <div class="field">
+                            <h3 >Email</h3>
+                            <div class="ui disabled input">
+                                <input type="text" name="userEmail" value="<%=userInfo.user_email %>"/>
+                            </div>
+                        </div>
+                        <!-- Email -->
+
+                        <!-- Phone -->
+                        <div class="field">
+                            <h3 >Phone</h3>
+                            <div class="ui disabled input data-edit">
+                                <input type="number" name="userPhone" value="<%=userInfo.user_phone %>"/>
+                            </div>
+                        </div>
+                        <!-- Phone -->
+                    </div>
+                    
+                    <div class="two fields">
+                        <!-- First Name -->
+                        <div class="field">
+                            <h3 >First Name</h3>
+                            <div class="ui disabled input data-edit">
+                                <input type="text" name="userFirstName" value="<%=userInfo.user_firstname %>"/>
+                            </div>
+                        </div>
+                        <!-- First Name -->
+
+                        <!-- Last Name -->
+                        <div class="field">
+                            <h3 >Last Name</h3>
+                            <div class="ui disabled input data-edit">
+                                <input type="text" name="userLastName" value="<%=userInfo.user_lastname %>"/>
+                            </div>
+                        </div>
+                        <!-- Last Name -->
+                    </div>
+
+                    <div class="two fields">
+                        <!-- First Name -->
+                        <div class="field">
+                            <h3 >Gender</h3>
+                            <div class="ui disabled input data-edit">
+                                <select name="userGender" disabled="true">
+                                <% if(userInfo.is_female == 0) { %>
+                                    <option value="0" selected>Female</option>
+                                    <option value="1">Male</option>
+                                <% } else { %>
+                                    <option value="0">Female</option>
+                                    <option value="1" selected>Male</option>
+                                <% } %>
+                                </select>
+                            </div>
+                        </div>
+                        <!-- First Name -->
+
+                        <!-- Last Name -->
+                        <div class="field">
+                            <h3 >Address</h3>
+                            <div class="ui disabled input data-edit">
+                                <input type="text" name="userAddress" value="<%=userInfo.user_address %>"/>
+                            </div>
+                        </div>
+                        <!-- Last Name -->
+
+                        <input type="hidden" name="userRole" value="<%=userInfo.role_id %>"/>
+                    </div>
+
+                </div>
+                <!-- form -->
+                <form class="ui form">
+                    <div class="fields">
+                        <div class="field">
+                            <button type="button" id="pw-btn" class="ui primary button show-btn">Change Password</button>
+                            <button type="button" id="edit-btn" class="ui yellow button show-btn">Edit</button>
+                            <button type="button" id="cancel-btn" class="ui red button hide-btn" style="display:none">Cancel</button>
+                            <button type="button" id="submit-btn" class="ui green button hide-btn" style="display:none">Submit</button>
+                        </div>
+                    </div>
+                </form>
+
+            </section>
+        </div>
+
+<% include ../partials/footer.ejs %>

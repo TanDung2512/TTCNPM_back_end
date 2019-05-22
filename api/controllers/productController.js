@@ -31,8 +31,6 @@ exports.get_top_sale = (req,res,next) => {
   })
 }
 
-
-
 exports.get_page_product = (req,res,next) => {
   products.getPageProduct(req.query.offset-'0')
   .then( products => {

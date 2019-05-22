@@ -11,8 +11,10 @@
         <div class="right menu">
 
             <div class="ui simple item">
-                <i class="user icon"></i> 
-                <%= userInfo.user_email%> 
+                <a id="user-info-href" href="/user-information">
+                    <i class="user icon"></i> 
+                    <%= userInfo.user_email%> 
+                </a>
             </div>
             <div class="ui simple dropdown item">
                 <a class="ui blue" href="/login">

@@ -3,7 +3,6 @@ const keys= require('../../config/keys');
 
   checkAuthCms = (req,res,next) => {
     let token = req.cookies.jwtToken;
-    console.log(token);
     
     if (token == undefined) {
         return res.render("login");

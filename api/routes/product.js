@@ -1,7 +1,32 @@
 const express    = require("express");
 const router     = express.Router();
+const multer     = require('multer');
+const fs         = require('fs');
+const shell      = require('shelljs');
+
 const controller = require('../controllers/productController');
-const controllerAdmin = require('../controllers/adminController');
+const adminController = require('../controllers/adminController');
+
+// Define storeage to store uploaded images
+const imageStorage = multer.diskStorage({
+    // define destination to store
+    destination: function (req, file, cb) {
+        // define saving file path
+        var savPath = './public/img/uploads/';
+        // check path is existed or not
+        if (!fs.existsSync(savPath)) {
+            shell.mkdir('-p', savPath);
+        }
+        cb(null, savPath);
+    },
+    // define file name
+    filename: function (req, file, cb) {
+        cb(null, file.originalname);
+    }
+});
+
+// Upload Image
+const imageUpload = multer({ storage: imageStorage });
 
 router.get('/rate',controller.get_top_rated);
 
@@ -17,10 +42,24 @@ router.get('/newproduct',controller.get_new_product);
 
 router.get('/detail',controller.get_product);
 
-router.get('/page/:page', controllerAdmin.getAllProduct)
+// Control Management System
 
-router.get('/search/:search', controllerAdmin.searchProductByName)
+router.get('/search-limit', adminController.productLimitSearch)
 
-router.post('/create', controllerAdmin.insertProduct)
+router.get('/search', adminController.productSearch)
+
+router.post('/create', adminController.productCreate)
+
+router.get('/update-product', adminController.productUpdateByName)
+
+router.get('/find-product', adminController.productFindInfo)
+
+router.get('/delete-product', adminController.productDelete)
+
+// Upload Image to server
+
+router.post("/upload-image", imageUpload.single("file"), (req, res) => {
+    res.send();
+});
 
 module.exports = router
